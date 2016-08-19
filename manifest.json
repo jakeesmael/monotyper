@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "monotyper",
+  "description": "This extension allows you to view facebook chat messages in a monospace font",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "https://www.facebook.com/messages/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/messages/*"],
+      "js": ["jquery-3.1.0.min.js", "convert.js"],
+      "css": ["monotyper.css"]
+    }
+  ]
+}
