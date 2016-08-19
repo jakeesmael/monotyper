@@ -11,15 +11,17 @@ console.log(elements.length);
 // 	})}
 // );
 $('._2nj p').each(function() {
-		console.log($(this).text());
-		var regex = /(`[^`]*`)/g;
-		if (regex.test($(this).text())) {
-			var text = $(this).text();
-			console.log('match');
-			$(this).addClass('code');
-			
-		}
-	});
+	var regex = /(`[^`]*`)/g;
+	if (regex.test($(this).text())) {
+		var text = $(this).text();
+		console.log('match with '+text);
+		text = text.replace(regex, function(t){
+			return '<kbd class="code">'+t.substring(1,t.length-1)+'</kbd>'
+		});
+		console.log(text);
+		$(this).html(text);
+	}
+});
 
 function format(str) {
 	console.log(str);
