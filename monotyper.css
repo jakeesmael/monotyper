@@ -1,3 +1,9 @@
 .code {
-	background-color: rgb(235,235,235);
+	color: rgb(210, 76, 116);
+	background-color: rgb(247,247,249);
+	border-color: rgb(225, 225, 232);
+	border-style:solid;
+  border-width:1px;
+	border-radius: 2px;
+	padding: 1px;
 }

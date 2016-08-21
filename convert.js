@@ -1,33 +1,33 @@
-var elements = $('p');
-console.log(elements.length);
-// $('._2nj').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
-// 	$('._2nj p').each(function() {
-// 		console.log($(this).text());
-// 		var regex = /(`[^`]*`)/g;
-// 		if (regex.test($(this).text())) {
-// 			var text = $(this).text();
-// 			$(this).html('<p class="code">'+text+'</p>');
-// 		}
-// 	})}
-// );
-$('._2nj p').each(function() {
-	var regex = /(`[^`]*`)/g;
-	if (regex.test($(this).text())) {
-		var text = $(this).text();
-		console.log('match with '+text);
-		text = text.replace(regex, function(t){
-			return '<kbd class="code">'+t.substring(1,t.length-1)+'</kbd>'
-		});
-		console.log(text);
-		$(this).html(text);
-	}
+var target = document.getElementById('webMessengerRecentMessages');
+
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    convert();
+  });    
 });
 
-function format(str) {
-	console.log(str);
-  var regex = /(`[^`]*`)/g;
-  var a = str.replace(regex, function(s){return "<b>"+s+"</b>"});
-  console.log(a);
-  console.log('------------');
+var config = { attributes: true, childList: true, characterData: true };
+
+observer.observe(target, config);
+
+function convert(){
+	observer.disconnect();
+	console.log($('p').length);
+	$('p').each(function() {
+		var inline = /(`[^`]*`)/g; // inline code separated by `
+		//var block = /(```[^`{3}]*```)/g // code block
+		if (inline.test($(this).text())) {
+			var text = $(this).text();
+			text = text.replace(inline, function(t){
+				return '<kbd class="code">'+t.substring(1,t.length-1)+'</kbd>'
+			});
+			$(this).html(text);
+		}
+	});
+	console.log('did it');
+	observer.observe(target, config);
 }
+
+// setInterval(function(){convert()}, 2000);
+convert();
 console.log('working');
